@@ -2,20 +2,20 @@ import React, { Component } from 'react'
 import Helmet from 'react-helmet'
 import { Container } from 'semantic-ui-react'
 
-export default class NotFoundPage extends Component {
+export default class PublicPage extends Component {
   render() {
     return (
       <Container>
         <Helmet
-          title="Gatsby 404"
+          title="Gatsby Public"
           meta={[
-            { name: 'description', content: '404 Not Found' },
-            { name: 'keywords', content: '404, Not Found, Page' },
+            { name: 'description', content: 'Public' },
+            { name: 'keywords', content: 'Public, Page' },
           ]}
         />
         <div className="top-space">
-          <h1>404</h1>
-          <p>The page you are looking for does not exist.</p>
+          <h1>Public</h1>
+          <p>This page is public, everyone can see it.</p>
         </div>
       </Container>
     )
