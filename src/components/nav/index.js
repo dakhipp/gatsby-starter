@@ -1,41 +1,119 @@
 import React, { Component } from 'react'
-import Link from "gatsby-link"
+import { navigateTo } from "gatsby-link"
 import { Menu, Container } from 'semantic-ui-react'
+
+import { isLoggedIn, isAdmin } from '../../utils/validation'
+
+import LoginContainer from '../../containers/loginContainer'
+import RegisterContainer from '../../containers/registerContainer'
 
 import { store } from '../../store';
 
 import styles from "./nav.module.css"
 
-export default class MenuExampleSecondaryPointing extends Component {
-  state = { activeItem: location.pathname.split('/')[1] || '' }
+export default class Nav extends Component {
+  constructor(props) {
+    super(props);
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+    this.state = {
+      activeItem: '',
+    }
+
+    this.handleItemClick = this.handleItemClick.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  handleItemClick(e, { name, to }) {
+    this.setState({ activeItem: name });
+    navigateTo(to);
+  }
+
+  handleLogout(e) {
+    e.preventDefault();
+    localStorage.clear();
+    navigateTo('/');
+  }
+
+  componentDidMount() {
+    const path = window.location.pathname.split('/');
+    let item = '';
+
+    // if root (/), set state to home. else set it to the path name.
+    if(path.length === 2) {
+      item = 'home';
+    } else {
+      item = path[1] || ''
+    }
+    
+    this.setState({
+      activeItem: item,
+    });
+  }
 
   render() {
     const { activeItem } = this.state
-
     return (
       <div>
           <Menu pointing secondary className={styles.menu}>
             <Container>
-              <Link to="/">
-                <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} />
-              </Link>
-              <Link to="/public/">
-                <Menu.Item name='public' active={activeItem === 'public'} onClick={this.handleItemClick} />
-              </Link>
-              <Link to="/user/">
-                <Menu.Item name='user' active={activeItem === 'user'} onClick={this.handleItemClick} />
-              </Link>
-              <Link to="/admin/">
-                <Menu.Item name='admin' active={activeItem === 'admin'} onClick={this.handleItemClick} />
-              </Link>
-              <Menu.Menu position='right'>
-                  { true ?
-                      <Menu.Item name='login' active={activeItem === 'login'} onClick={this.handleItemClick} /> :
-                      <Menu.Item name='logout' active={activeItem === 'logout'} onClick={this.handleItemClick} />
-                  }
-              </Menu.Menu>
+              <Menu.Item 
+                name='home'
+                to='/'
+                active={activeItem === 'home'} 
+                onClick={this.handleItemClick} 
+              />
+              <Menu.Item 
+                name='public'
+                to='/public/'
+                active={activeItem === 'public'} 
+                onClick={this.handleItemClick} 
+              />
+              {
+                isLoggedIn() ?
+                  <Menu.Item 
+                    name='user'
+                    to='/user/'
+                    active={activeItem === 'user'} 
+                    onClick={this.handleItemClick} 
+                  /> : null
+              }
+              {
+                isAdmin() ? 
+                  <Menu.Item 
+                    name='admin'
+                    to='/admin/'
+                    active={activeItem === 'admin'} 
+                    onClick={this.handleItemClick} 
+                  /> : null
+              }
+              {
+                isLoggedIn() ?
+                  <Menu.Menu position='right'>
+                    <Menu.Item 
+                      name='logout' 
+                      active={activeItem === 'logout'} 
+                      onClick={this.handleLogout} 
+                    />
+                  </Menu.Menu> :
+                  <Menu.Menu position='right'>
+                    <LoginContainer
+                      trigger={
+                        <Menu.Item 
+                          name='login' 
+                          link={false}
+                        />
+                      }
+                    />
+                    <RegisterContainer
+                      trigger={
+                        <Menu.Item 
+                          name='register'
+                          link={false}
+                        />
+                      } 
+                    />
+                  </Menu.Menu>
+              }
             </Container>
           </Menu>
       </div>

@@ -1,0 +1,12 @@
+.form {
+  background: #cbcbcb;
+  padding: 2em;
+  margin-bottom: 0;
+}
+.input {
+  width: 100%;
+}
+.fieldPadding {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
