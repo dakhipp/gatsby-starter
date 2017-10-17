@@ -1,19 +1,19 @@
 import {
-  INC_COUNT,
-  DEC_COUNT
+  SET_IAM,
+  REMOVE_IAM,
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  count: 0,
+  iam: {},
 };
 
-// count reducers
+// iam reducer
 export default function(state = INITIAL_STATE, action) {
   switch(action.type) {
-    case INC_COUNT:
-      return { ...state, count: action.payload };
-    case DEC_COUNT:
-      return { ...state, count: action.payload };
+    case SET_IAM:
+      return { ...state, iam: action.payload };
+    case REMOVE_IAM:
+      return { ...state, iam: {} };
     default:
       return state;
   }

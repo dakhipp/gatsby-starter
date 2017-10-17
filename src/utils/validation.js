@@ -1,10 +1,10 @@
-export const isLoggedIn = () => {
-  return localStorage.hasOwnProperty('iam');
+export const isLoggedIn = (iam) => {
+  return iam.hasOwnProperty('token');
 }
 
-export const isAdmin = () => {
-  if(!isLoggedIn()) {
+export const isAdmin = (iam) => {
+  if(!isLoggedIn(iam)) {
     return false;
   }
-  return JSON.parse(localStorage.getItem('iam')).scope === 'ADMIN';
+  return iam.scope === 'ADMIN';
 }

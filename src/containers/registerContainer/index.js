@@ -8,6 +8,8 @@ import { registerMutation } from '../../mutations'
 
 import RegisterForm from '../../components/registerForm'
 
+import * as actions from '../../actions'
+
 class RegisterContainer extends Component {
   constructor(props) {
     super(props);
@@ -22,20 +24,8 @@ class RegisterContainer extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const variables = this.props.values.values;
-    this.props.mutate({ variables })
-    .then((res) => { 
-      localStorage.setItem('iam', JSON.stringify(res.data.register));
-      this.setState({
-        errors: [],
-        response: 'Successful!',
-      });
-    })
-    .catch((err) => {
-      this.setState({
-        errors: err.graphQLErrors.map(error => error.message),
-      });
-    });
+    const {registerSubmit, mutate, values} = this.props;
+    registerSubmit(mutate, values.values);
   }
 
   render() {
@@ -61,5 +51,5 @@ function mapStateToProps(store) {
 
 export default compose(
   graphql(registerMutation),
-  connect(mapStateToProps)
+  connect(mapStateToProps, actions)
 )(RegisterContainer);

@@ -31,7 +31,8 @@ export default class Nav extends Component {
   handleLogout(e) {
     e.preventDefault();
     localStorage.clear();
-    navigateTo('/');
+    console.log(this.props);
+    this.props.logout();
   }
 
   componentDidMount() {
@@ -52,6 +53,7 @@ export default class Nav extends Component {
 
   render() {
     const { activeItem } = this.state
+    console.log('s ', this.props);
     return (
       <div>
           <Menu pointing secondary className={styles.menu}>
@@ -69,7 +71,7 @@ export default class Nav extends Component {
                 onClick={this.handleItemClick} 
               />
               {
-                isLoggedIn() ?
+                isLoggedIn(this.props.iam) ?
                   <Menu.Item 
                     name='user'
                     to='/user/'
@@ -78,7 +80,7 @@ export default class Nav extends Component {
                   /> : null
               }
               {
-                isAdmin() ? 
+                isAdmin(this.props.iam) ? 
                   <Menu.Item 
                     name='admin'
                     to='/admin/'
@@ -87,7 +89,7 @@ export default class Nav extends Component {
                   /> : null
               }
               {
-                isLoggedIn() ?
+                isLoggedIn(this.props.iam) ?
                   <Menu.Menu position='right'>
                     <Menu.Item 
                       name='logout' 

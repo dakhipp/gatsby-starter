@@ -8,6 +8,8 @@ import { loginMutation } from '../../mutations'
 
 import LoginForm from '../../components/loginForm'
 
+import * as actions from '../../actions'
+
 class LoginContainer extends Component {
   constructor(props) {
     super(props);
@@ -22,20 +24,8 @@ class LoginContainer extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const variables = this.props.values.values;
-    this.props.mutate({ variables })
-    .then((res) => { 
-      localStorage.setItem('iam', JSON.stringify(res.data.login));
-      this.setState({
-        errors: [],
-        response: 'Successful!',
-      });
-    })
-    .catch((err) => {
-      this.setState({
-        errors: err.graphQLErrors.map(error => error.message),
-      });
-    });
+    const {loginSubmit, mutate, values} = this.props;
+    loginSubmit(mutate, values.values);
   }
 
   render() {
@@ -61,5 +51,5 @@ function mapStateToProps(store) {
 
 export default compose(
   graphql(loginMutation),
-  connect(mapStateToProps)
+  connect(mapStateToProps, actions)
 )(LoginContainer);
