@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import * as actions from '../../actions'
 
@@ -7,14 +8,17 @@ import Nav from '../../components/nav'
 
 class NavContainer extends Component {
   render() {
-    return (
-      <Nav iam={this.props.iam} logout={this.props.removeIam} />
-    )
+    return <Nav iam={this.props.iam} logout={this.props.removeIam} />
   }
 }
 
-function mapStateToProps(store) {
-  return { iam: store.iam.iam };
+NavContainer.propTypes = {
+  iam: PropTypes.object,
+  removeIam: PropTypes.func,
 }
 
-export default connect(mapStateToProps, actions)(NavContainer);
+function mapStateToProps(store) {
+  return { iam: store.iam.iam }
+}
+
+export default connect(mapStateToProps, actions)(NavContainer)

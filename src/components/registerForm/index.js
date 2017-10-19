@@ -1,45 +1,35 @@
 import React, { Component } from 'react'
-import { Field, reduxForm } from 'redux-form'
-import { Input, Button } from 'semantic-ui-react'
+import { Field, reduxForm, propTypes } from 'redux-form'
+import { Button } from 'semantic-ui-react'
+
+import formFeild from '../../components/formField'
 
 import styles from './registerForm.module.css'
 
-const renderField = ({input, type, label, meta: { touched, error, warning }}) => (
-  <div>
-    <Input 
-      {...input}
-      className={styles.input} 
-      placeholder={label} 
-      type={type} 
-    />
-  </div>
-);
-
 class RegisterForm extends Component {
+  static propTypes = {
+    ...propTypes,
+  }
+
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   render() {
-    const { handleSubmit, pristine, submitting, errors, response } = this.props;
+    const { handleSubmit, pristine, submitting, errors, response } = this.props
     return (
       <form onSubmit={handleSubmit} className={styles.form}>
         <h2>Register</h2>
-        {errors.map((error) => error)}
+        {errors.map(error => error)}
         {response}
         <div className={styles.fieldPadding}>
-          <Field
-            name="name"
-            type="text"
-            component={renderField}
-            label="Name"
-          />
+          <Field name="name" type="text" component={formFeild} label="Name" />
         </div>
         <div className={styles.fieldPadding}>
           <Field
             name="username"
             type="text"
-            component={renderField}
+            component={formFeild}
             label="Username"
           />
         </div>
@@ -47,23 +37,18 @@ class RegisterForm extends Component {
           <Field
             name="phone_number"
             type="text"
-            component={renderField}
+            component={formFeild}
             label="Phone Number"
           />
         </div>
         <div className={styles.fieldPadding}>
-          <Field
-            name="email"
-            type="text"
-            component={renderField}
-            label="Email"
-          />
+          <Field name="email" type="text" component={formFeild} label="Email" />
         </div>
         <div className={styles.fieldPadding}>
           <Field
             name="password"
             type="text"
-            component={renderField}
+            component={formFeild}
             label="Password"
           />
         </div>
@@ -71,11 +56,13 @@ class RegisterForm extends Component {
           <Field
             name="password_conf"
             type="text"
-            component={renderField}
+            component={formFeild}
             label="Password Confirmation"
           />
         </div>
-        <Button primary type="submit" disabled={pristine || submitting}>Submit</Button>
+        <Button primary type="submit" disabled={pristine || submitting}>
+          Submit
+        </Button>
       </form>
     )
   }

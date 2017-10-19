@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 
 export const users = gql`
   query Users($page: Int!, $perPage: Int!) {
@@ -8,4 +8,4 @@ export const users = gql`
       username
     }
   }
-`;
+`

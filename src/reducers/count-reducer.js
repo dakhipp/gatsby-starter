@@ -1,21 +1,17 @@
-import {
-  INC_COUNT,
-  DEC_COUNT
-} from '../actions/types';
+import { INC_COUNT, DEC_COUNT } from '../actions/types'
 
 const INITIAL_STATE = {
   count: 0,
-};
+}
 
 // count reducers
 export default function(state = INITIAL_STATE, action) {
-  switch(action.type) {
+  switch (action.type) {
     case INC_COUNT:
-      return { ...state, count: action.payload };
+      return { ...state, count: action.payload }
     case DEC_COUNT:
-      return { ...state, count: action.payload };
+      return { ...state, count: action.payload }
     default:
-      return state;
+      return state
   }
-  return state;
 }

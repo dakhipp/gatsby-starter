@@ -1,7 +1,14 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 
 export const registerMutation = gql`
-  mutation Register($name: String!, $username: String!, $phone_number: String!, $email: String!, $password: String!, $password_conf: String!) {
+  mutation Register(
+    $name: String!
+    $username: String!
+    $phone_number: String!
+    $email: String!
+    $password: String!
+    $password_conf: String!
+  ) {
     register(
       name: $name
       username: $username
@@ -15,17 +22,14 @@ export const registerMutation = gql`
       scope
     }
   }
-`;
+`
 
 export const loginMutation = gql`
   mutation Login($username: String!, $password: String!) {
-    login(
-      username: $username
-      password: $password
-    ) {
+    login(username: $username, password: $password) {
       id
       token
       scope
     }
   }
-`;
+`

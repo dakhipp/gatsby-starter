@@ -3,7 +3,6 @@ import Helmet from 'react-helmet'
 import { Container } from 'semantic-ui-react'
 
 import CounterContainer from '../containers/counterContainer'
-import RegisterContainer from '../containers/registerContainer'
 
 export default class HomePage extends Component {
   render() {

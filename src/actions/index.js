@@ -1,5 +1,5 @@
-import { 
-  INC_COUNT, 
+import {
+  INC_COUNT,
   DEC_COUNT,
   REGISTER_SUBMIT,
   REGISTER_SUCCESS,
@@ -9,7 +9,7 @@ import {
   LOGIN_ERROR,
   SET_IAM,
   REMOVE_IAM,
-} from './types';
+} from './types'
 
 export function incCount(count) {
   return {
@@ -27,49 +27,49 @@ export function decCount(count) {
 
 export function registerSubmit(mutate, variables) {
   return function(dispatch) {
-    dispatch({ type: REGISTER_SUBMIT });
+    dispatch({ type: REGISTER_SUBMIT })
     return mutate({ variables })
-      .then((res) => { 
+      .then(res => {
         // save use to localStorage
-        localStorage.setItem('iam', JSON.stringify(res.data.login));
+        localStorage.setItem('iam', JSON.stringify(res.data.login))
 
         // register success
-        dispatch({ type: REGISTER_SUCCESS, payload: 'Login Successful' });
+        dispatch({ type: REGISTER_SUCCESS, payload: 'Login Successful' })
 
         // set iam
-        dispatch(setIam(res.data.register));
+        dispatch(setIam(res.data.register))
       })
-      .catch((err) => {
+      .catch(err => {
         // register error
         dispatch({
           type: REGISTER_ERROR,
-          payload: err.graphQLErrors.map((e) => e.message)
-        });
-      });
+          payload: err.graphQLErrors.map(e => e.message),
+        })
+      })
   }
 }
 
 export function loginSubmit(mutate, variables) {
   return function(dispatch) {
-    dispatch({ type: LOGIN_SUBMIT });
+    dispatch({ type: LOGIN_SUBMIT })
     return mutate({ variables })
-      .then((res) => { 
+      .then(res => {
         // save use to localStorage
-        localStorage.setItem('iam', JSON.stringify(res.data.login));
+        localStorage.setItem('iam', JSON.stringify(res.data.login))
 
         // register success
-        dispatch({ type: LOGIN_SUCCESS, payload: 'Login Successful' });
+        dispatch({ type: LOGIN_SUCCESS, payload: 'Login Successful' })
 
         // set iam
-        dispatch(setIam(res.data.login));
+        dispatch(setIam(res.data.login))
       })
-      .catch((err) => {
+      .catch(err => {
         // register error
         dispatch({
           type: LOGIN_ERROR,
-          payload: err.graphQLErrors.map((e) => e.message)
-        });
-      });
+          payload: err.graphQLErrors.map(e => e.message),
+        })
+      })
   }
 }
 
@@ -77,12 +77,11 @@ export function setIam(payload) {
   return {
     type: SET_IAM,
     payload,
-  };
+  }
 }
 
 export function removeIam() {
-  console.log('hit');
   return {
     type: REMOVE_IAM,
-  };
+  }
 }
