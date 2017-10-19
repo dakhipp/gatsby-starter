@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Helmet from 'react-helmet'
 import { Container } from 'semantic-ui-react'
 
-import Counter from '../components/counter'
+import CounterContainer from '../containers/counterContainer'
 import RegisterContainer from '../containers/registerContainer'
 
 export default class HomePage extends Component {
@@ -21,7 +21,7 @@ export default class HomePage extends Component {
           <p>Welcome to the home page.</p>
           <br />
 
-          <Counter />
+          <CounterContainer />
         </div>
       </Container>
     )

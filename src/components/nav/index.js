@@ -53,7 +53,6 @@ export default class Nav extends Component {
 
   render() {
     const { activeItem } = this.state
-    console.log('s ', this.props);
     return (
       <div>
           <Menu pointing secondary className={styles.menu}>
